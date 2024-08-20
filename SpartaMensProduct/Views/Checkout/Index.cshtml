@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SpartaMensProduct.Models.Cart>
+
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<h2>Checkout</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Your Order</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price.ToString("C")</td>
+                        <td>@(item.Quantity * item.Price)</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            @using (Html.BeginForm("PlaceOrder", "Checkout", FormMethod.Post))
+            {
+
+            @Html.AntiForgeryToken()
+         
+            <input type="submit" value="Place Order" class="btn btn-primary" />
+            }
+
+
+
+
+
+
+
+
+
+          
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Access Denied";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card text-center">
+                <div class="card-header bg-danger text-white">
+                    <h2>Access Denied</h2>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">You do not have permission to access this page.</h5>
+                    <p class="card-text">Please contact the administrator if you believe this is an error.</p>
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Go to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

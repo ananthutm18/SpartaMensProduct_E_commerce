@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SpartaMensProduct.Models.Order>
+
+@{
+    ViewBag.Title = "Manage Orders";
+}
+
+<div class="container mt-4">
+    <h2>Manage Orders</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>User</th>
+                <th>Total Amount</th>
+                <th>Payment Method</th>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Address</th>
+                <th>phone Number</th>
+
+                <th>Products</th>
+
+
+
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.User.FirstName @order.User.LastName (@order.User.Email)</td>
+
+                <td>@order.TotalAmount</td>
+                <td>@order.PaymentMethod</td>
+                <td>@order.OrderDate.ToShortDateString()</td>
+                <td>@order.Status</td>
+                <td>@order.User.Address</td>
+                <td>@order.User.PhoneNumber</td>
+
+                <td>
+                    <ul>
+                        @foreach (var item in order.OrderItems)
+                        {
+                        <li>@item.ProductName (ID: @item.ProductId)</li>
+                        }
+                    </ul>
+                </td>
+
+
+
+
+
+                <td>
+                    <a href="@Url.Action("EditOrder", "Admin", new { id = order.OrderId })" class="btn btn-primary btn-sm">Edit</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

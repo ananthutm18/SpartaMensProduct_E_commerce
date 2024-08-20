@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<h2 class="text-center mb-4">Login</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+            @Html.AntiForgeryToken()
+
+
+
+            <div class="form-group row">
+                @Html.Label("Email", htmlAttributes: new { @class = "col-form-label col-md-4" })
+                <div class="col-md-8">
+                    <input type="email" name="email" class="form-control" required placeholder="Enter your email" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("Password", htmlAttributes: new { @class = "col-form-label col-md-4" })
+                <div class="col-md-8">
+                    <input type="password" name="password" class="form-control" required placeholder="Enter your password" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-12">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-8 offset-md-4">
+                    <input type="submit" value="Login" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    }

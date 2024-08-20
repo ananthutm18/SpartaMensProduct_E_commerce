@@ -1,0 +1,80 @@
+﻿@model SpartaMensProduct.Models.Product
+
+@{
+    ViewBag.Title = "Product Details";
+}
+
+<h2>@Model.ProductName</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            @if (Model.ImageData != null)
+            {
+                var base64 = Convert.ToBase64String(Model.ImageData);
+                var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+            <img src="@imgSrc" class="img-fluid" alt="Product Image" />
+            }
+        </div>
+        <div class="col-md-6">
+            <h3>@Model.ProductName</h3>
+            <p>@Model.Description</p>
+            <p>Category: @Model.Category</p>
+            <p>Price: @Model.Price.ToString("C")</p>
+            <a href="@Url.Action("Index", "Product")" class="btn btn-primary">Back to Shop</a>
+
+            @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
+                                {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("productId", Model.ProductId)
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" id="decrease">-</button>
+                    </span>
+                    @Html.TextBox("quantity", 1, new { @class = "form-control", id = "quantity" })
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" id="increase">+</button>
+                    </span>
+                </div>
+            </div>
+            <div id="qantError" style="color:red;font-size:28px"></div>
+
+            <input type="submit" value="Add to Cart" class="btn btn-primary" />
+                                }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+// JavaScript for increasing and decreasing quantity
+
+        var stockQuantity = @Model.StockQuantity;
+
+        console.log(stockQuantity)
+        var qerr = document.getElementById("qantError")
+
+        document.getElementById('increase').addEventListener('click', function () {
+            var quantityInput = document.getElementById('quantity');
+            var currentValue = parseInt(quantityInput.value);
+            if (currentValue < stockQuantity) { // Check if current quantity is less than stock quantity
+                quantityInput.value = currentValue + 1;
+                qerr.innerHTML = ""
+            } else {
+                qerr.innerHTML ="Quantity exceeds stock availability."
+            }
+        });
+
+        document.getElementById('decrease').addEventListener('click', function () {
+            var quantityInput = document.getElementById('quantity');
+            var currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) { // Prevent quantity from going below 1
+
+                qerr.innerHTML = ""
+                quantityInput.value = currentValue - 1;
+            }
+        });
+    </script>
+}

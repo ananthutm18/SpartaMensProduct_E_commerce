@@ -1,0 +1,180 @@
+﻿@model IEnumerable<SpartaMensProduct.Models.Product>
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/Contents/css/style.css" />
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4">Discover the Best in Men's Fashion</h1>
+            <p class="lead">Shop the latest trends and styles at unbeatable prices.</p>
+            <a href="@Url.Action("Index", "Product")" class="btn btn-light btn-lg">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Product Categories -->
+    <section class="categories py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Shop by Category</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="~/Contents/Img/Suits.jpg" class="card-img-top" alt="Category 1">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Suits & Formals</h5>
+                            <p class="card-text">Explore our collection of elegant formals and suits for any occasion.</p>
+                            <a href="@Url.Action("ByCategory", "Product",new { Category = "Suits" }, null)" class="btn btn-light btn-lg">Shop Now</a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="~/Contents/Img/Casuals.jpg" class="card-img-top" alt="Category 1">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Casual Wear</h5>
+                            <p class="card-text">Find the perfect casual outfits for everyday wear.</p>
+
+                            <a href="@Url.Action("ByCategory", "Product",new { Category = "Casuals" }, null)" class="btn btn-light btn-lg">Shop Now</a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="~/Contents/Img/sports.jpg" class="card-img-top" alt="Category 3">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Sports Wears</h5>
+                            <p class="card-text">Complete your Body with our Sports Out fits.</p>
+                            
+                                <a href="@Url.Action("ByCategory", "Product",new { Category = "Sports" }, null)" class="btn btn-light btn-lg">Shop Now</a>
+                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Featured Products</h2>
+            <div class="row">
+                <!-- Repeat this block for each featured product -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+                @foreach (var product in Model.Take(3))
+        {
+                <div class="col-md-4">
+                    <div class="card">
+                        @if (product.ImageData != null)
+                    {
+                        var base64 = Convert.ToBase64String(product.ImageData);
+                        var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                        <img src="@imgSrc" class="card-img-top" alt="Product iamage">
+
+                    }
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@product.ProductName</h5>
+                            <p class="card-text">@product.Price.ToString("C")</p>
+                        </div>
+                    </div>
+                </div>
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Promotional Banner -->
+    <section class="promotional-banner py-5 text-center">
+        <div class="container">
+            <h2 class="display-4 text-white">Seasonal Sale - Up to 50% Off!</h2>
+            <p class="lead text-white">Shop now and grab the best deals on men’s fashion.</p>
+        </div>
+    </section>
+    <footer class="bg-dark text-white">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>About Us</h5>
+                    <p>©Spartans Ecommerce. All rights reserved.</p>
+                    <p>688504, Kadavnathra, Ernakulam</p>
+                    <p>Contact us: <a href="mailto:spartansinfo@example.com" class="text-white">info@example.com</a></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Follow Us</h5>
+                    <a href="https://facebook.com" class="text-white me-2" target="_blank">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                    <a href="https://twitter.com" class="text-white me-2" target="_blank">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </a>
+                    <a href="https://instagram.com" class="text-white" target="_blank">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+
+</html>

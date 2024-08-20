@@ -1,0 +1,19 @@
+﻿@model SpartaMensProduct.Models.Category
+
+@{
+    ViewBag.Title = "Delete Category";
+}
+
+<div class="container mt-4">
+    <h2>Delete Category</h2>
+    <div class="alert alert-warning">
+        <p>Are you sure you want to delete this Category?</p>
+        <p><strong>@Model.CategoryName</strong></p>
+        <form action="@Url.Action("CategoryDeleteConfirmed", "Admin")" method="post">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.CategoryId)
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a href="@Url.Action("CategoryList", "Admin")" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<SpartaMensProduct.Models.Product>
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Shop</h2>
+
+<div class="container">
+    <div class="row">
+        <!-- Filters and Sorting Options -->
+        <!-- Products Grid -->
+        <div class="col-md-9">
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                <div class="col-md-4 mb-4">
+                    <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="text-decoration-none text-dark">
+                        <div class="card">
+                            @if (product.ImageData != null)
+                            {
+                                var base64 = Convert.ToBase64String(product.ImageData);
+                                var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                            <img src="@imgSrc" class="card-img-top" alt="Product image" style="object-fit: cover; height: 200px;">
+                            }
+                            <div class="card-body text-center">
+                                <h5 class="card-title">@product.ProductName</h5>
+                                <p class="card-text">@product.Price.ToString("C")</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

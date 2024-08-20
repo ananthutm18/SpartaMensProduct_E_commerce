@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Contact Us";
+}
+
+<div class="container">
+    <h2>@ViewBag.Title</h2>
+    <p>If you have any questions or need assistance, please feel free to contact us using the form below.</p>
+
+    <form id="contactForm">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label for="Name">Full Name</label>
+            <input type="text" name="Name" id="Name" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Email">Email Address</label>
+            <input type="email" name="Email" id="Email" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Subject">Subject</label>
+            <input type="text" name="Subject" id="Subject" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Message">Message</label>
+            <textarea name="Message" id="Message" class="form-control" rows="5" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Send Message" class="btn btn-primary" />
+        </div>
+
+        <div id="formStatus" style="display:none;" class="alert"></div>
+
+    </form>
+</div>
+
+
+<footer class="bg-dark text-white">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5>About Us</h5>
+                <p>©Spartans Ecommerce. All rights reserved.</p>
+                <p>688504, Kadavnathra, Ernakulam</p>
+                <p>Contact us: <a href="mailto:spartansinfo@example.com" class="text-white">info@example.com</a></p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Follow Us</h5>
+                <a href="https://facebook.com" class="text-white me-2" target="_blank">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <a href="https://twitter.com" class="text-white me-2" target="_blank">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+                <a href="https://instagram.com" class="text-white" target="_blank">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#contactForm').on('submit', function (e) {
+                e.preventDefault()
+
+                var formStatus = $('#formStatus');
+                formStatus.removeClass('alert-success')
+                formStatus.text('Sending message...').show()
+
+                setTimeout(function () {
+                    formStatus.text('Your message has been successfully sent!').addClass('alert-success')
+                }, 2000)
+
+                
+            })
+        })
+
+    </script>
+}

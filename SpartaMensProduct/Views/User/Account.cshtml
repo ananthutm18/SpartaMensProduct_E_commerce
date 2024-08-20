@@ -1,0 +1,120 @@
+﻿@model SpartaMensProduct.Models.User
+
+@{
+    ViewBag.Title = "My Account";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">My Account</h2>
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="#profile" class="list-group-item list-group-item-action active" data-toggle="list">Profile</a>
+                <a href="@Url.Action("MyOrders", "User")" class="list-group-item list-group-item-action">My Orders</a>
+                <a href="@Url.Action("Edit", "User")" class="list-group-item list-group-item-action">Edit Profile</a>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <div class="tab-content">
+                <!-- Profile Section -->
+                <div class="tab-pane active" id="profile">
+                    <h3>Profile</h3>
+                    <div class="text-center mb-4">
+                        @if (Model.ImageData != null)
+                        {
+                        <img src="data:image/png;base64,@(Convert.ToBase64String(Model.ImageData))" class="rounded-circle" alt="User Image" width="150" height="150">
+                        }
+                        else
+                        {
+                        <img src="~/Content/default-user.png" class="rounded-circle" alt="User Image" width="150" height="150">
+                        }
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="FirstName">First Name</label>
+                            <input type="text" class="form-control" id="FirstName" value="@Model.FirstName" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="LastName">Last Name</label>
+                            <input type="text" class="form-control" id="LastName" value="@Model.LastName" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="Email">Email</label>
+                            <input type="email" class="form-control" id="Email" value="@Model.Email" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="Address">Address</label>
+                            <input type="text" class="form-control" id="Address" value="@Model.Address" readonly>
+                        </div>
+                    </form>
+                </div>
+                <!-- My Orders Section -->
+                <!-- Settings Section -->
+                <div class="tab-pane" id="settings">
+                    <h3>Settings</h3>
+                    <div class="text-center mb-4">
+                        @if (Model.ImageData != null)
+                        {
+                        <img src="data:image/png;base64,@(Convert.ToBase64String(Model.ImageData))" class="rounded-circle" alt="User Image" width="150" height="150">
+                        }
+                        else
+                        {
+                        <img src="~/Content/default-user.png" class="rounded-circle" alt="User Image" width="150" height="150">
+                        }
+                    </div>
+                    <form action="@Url.Action("UpdateProfile", "Account")" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="FirstNameEdit">First Name</label>
+                            <input type="text" class="form-control" id="FirstNameEdit" name="FirstName" value="@Model.FirstName">
+                        </div>
+                        <div class="form-group">
+                            <label for="LastNameEdit">Last Name</label>
+                            <input type="text" class="form-control" id="LastNameEdit" name="LastName" value="@Model.LastName">
+                        </div>
+                        <div class="form-group">
+                            <label for="EmailEdit">Email</label>
+                            <input type="email" class="form-control" id="EmailEdit" name="Email" value="@Model.Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="AddressEdit">Address</label>
+                            <input type="text" class="form-control" id="AddressEdit" name="Address" value="@Model.Address">
+                        </div>
+                        <div class="form-group">
+                            <label for="ImageFile">Profile Image</label>
+                            <input type="file" class="form-control-file" id="ImageFile" name="ImageFile">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer class="bg-dark text-white">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5>About Us</h5>
+                <p>©Spartans Ecommerce. All rights reserved.</p>
+                <p>688504, Kadavnathra, Ernakulam</p>
+                <p>Contact us: <a href="mailto:spartansinfo@example.com" class="text-white">info@example.com</a></p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Follow Us</h5>
+                <a href="https://facebook.com" class="text-white me-2" target="_blank">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <a href="https://twitter.com" class="text-white me-2" target="_blank">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+                <a href="https://instagram.com" class="text-white" target="_blank">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>

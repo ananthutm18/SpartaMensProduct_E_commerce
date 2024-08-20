@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Admin Dashboard</h2>
+    <div class="row">
+        <!-- Sidebar for navigation -->
+        <div class="col-md-3">
+            <div class="list-group">
+
+
+                <div class="list-group-item list-group-item-action dropdown">
+                    <a href="#" id="manageProductsDropdown" class="dropdown-toggle">Manage Products</a>
+                    <div id="dropdown-menu" style="display: none;">
+                        <a href="@Url.Action("Create", "Product")" class="list-group-item list-group-item-action"> Add New Product</a>
+                        <a href="@Url.Action("ProductList", "Admin")" class="list-group-item list-group-item-action">Product List</a>
+                    </div>
+                </div>
+
+
+
+
+                <a href="@Url.Action("Category", "Admin")" class="list-group-item list-group-item-action">Manage Category</a>
+                <a href="@Url.Action("OrdersList", "Admin")" class="list-group-item list-group-item-action">Manage Orders</a>
+                <a href="@Url.Action("UserList", "Admin")" class="list-group-item list-group-item-action">Manage Users</a>
+
+
+            </div>
+        </div>
+
+        <!-- Main content area -->
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>Dashboard Overview</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card bg-success text-white mb-4">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Total Products</h5>
+                                    <p class="card-text">@Model.TotalProducts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-warning text-white mb-4">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Pending Orders</h5>
+                                    <p class="card-text">@Model.PendingOrders</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-info text-white mb-4">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Total Sales</h5>
+                                    <p class="card-text">@Model.TotalSales.ToString("C")</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-info" role="alert">
+                        Welcome, @Session["FirstName"]! Manage your products and orders efficiently using the links on the left.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var dropdownToggle = document.getElementById('manageProductsDropdown');
+    //var dropdownMenu = dropdownToggle.nextElementSibling;   dropdown-menu
+    var dropdownMenu = document.getElementById("dropdown-menu") 
+    dropdownToggle.addEventListener('click', function(event) {
+        event.preventDefault();
+        var isMenuVisible = dropdownMenu.style.display === 'block';
+        dropdownMenu.style.display = isMenuVisible ? 'none' : 'block';
+    });
+
+    // Close the dropdown if clicked outside of it
+    document.addEventListener('click', function(event) {
+        if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+});
+</script>
+

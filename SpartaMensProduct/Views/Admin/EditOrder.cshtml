@@ -1,0 +1,26 @@
+﻿@model SpartaMensProduct.Models.Order
+
+@{
+    ViewBag.Title = "Edit Order";
+}
+
+<div class="container mt-4">
+    <h2>Edit Order</h2>
+    <form action="@Url.Action("UpdateOrderStatus", "Admin")" method="post">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.OrderId)
+
+        <div class="form-group">
+            <label for="Status">Order Status</label>
+            <select id="Status" name="Status" class="form-control">
+                <option value="Pending" @(Model.Status == "Pending" ? "selected" : "")>Pending</option>
+                <option value="Out for Delivery" @(Model.Status == "Out for Delivery" ? "selected" : "")>Out for Delivery</option>
+                <option value="Delivered" @(Model.Status == "Delivered" ? "selected" : "")>Delivered</option>
+                <option value="Cancelled" @(Model.Status == "Cancelled" ? "selected" : "")>Cancelled</option>
+
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Status</button>
+    </form>
+</div>

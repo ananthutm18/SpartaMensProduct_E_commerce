@@ -1,0 +1,250 @@
+﻿@model SpartaMensProduct.Models.User
+
+@{
+    ViewBag.Title = "Create User";
+}
+
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-md-8 col-lg-6">
+        <h2 class="text-center my-4">Create User</h2>
+
+        @using (Html.BeginForm("Create", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal p-4 rounded bg-light shadow-sm">
+            <div class="form-group row">
+                @Html.LabelFor(model => model.FirstName,"First name", htmlAttributes: new { @class = "control-label col-md-4 font-weight-bold" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.LastName,"Last name",htmlAttributes: new { @class = "control-label col-md-4 font-weight-bold" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-4 font-weight-bold" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.PasswordHash, "Password", htmlAttributes: new { @class = "control-label col-md-4 font-weight-bold" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.PasswordHash, new { htmlAttributes = new { @class = "form-control", type = "password" } })
+                    @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("Confirm Password", htmlAttributes: new { @class = "control-label col-md-4 font-weight-bold" })
+                <div class="col-md-8">
+                    <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" />
+                    <span id="passwordError" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.PhoneNumber,"Phone number", htmlAttributes: new { @class = "control-label col-md-4 font-weight-bold" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.DateOfBirth,"Date of birth", htmlAttributes: new { @class = "control-label col-md-4 font-weight-bold" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.DateOfBirth, "{0:yyyy-MM-dd}", new { @class = "form-control", id = "DateOfBirth", type = "date" })
+                    @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                    <span id="dobError" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-4 font-weight-bold" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-4 font-weight-bold" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.State, new SelectList(
+                        new List<SelectListItem>
+                        {
+                            new SelectListItem { Value = "KA", Text = "Kerala" },
+                            new SelectListItem { Value = "TN", Text = "Tamil Nadu" },
+                            new SelectListItem { Value = "KR", Text = "Karnataka" }
+                        },
+                        "Value", "Text"
+                    ), "Select State", new { id = "stateDropdown", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-4 font-weight-bold" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.City, new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "Select City", new { id = "cityDropdown", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("Image", htmlAttributes: new { @class = "control-label col-md-4 font-weight-bold" })
+                <div class="col-md-8">
+                    <input type="file" id="imageFile" name="imageFile" class="form-control-file" />
+                    <img id="imagePreview" src="#" alt="Image Preview" class="img-fluid mt-2 d-none" />
+                    <h4 id="errImg" class="mt-2 text-danger"></h4>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-offset-4 col-md-8">
+                    <input type="submit" value="Create" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+<footer class="bg-dark text-white">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5>About Us</h5>
+                <p>©Spartans Ecommerce. All rights reserved.</p>
+                <p>688504, Kadavnathra, Ernakulam</p>
+                <p>Contact us: <a href="mailto:spartansinfo@example.com" class="text-white">info@example.com</a></p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Follow Us</h5>
+                <a href="https://facebook.com" class="text-white me-2" target="_blank">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <a href="https://twitter.com" class="text-white me-2" target="_blank">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+                <a href="https://instagram.com" class="text-white" target="_blank">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        const citiesByState = {
+            "KA": [
+                { value: "AL", text: "Alappuzha" },
+                { value: "ER", text: "Ernakulam" }
+            ],
+            "TN": [
+                { value: "CN", text: "Chennai" },
+                { value: "OT", text: "Ootty" }
+            ],
+            "KR": [
+                { value: "KC", text: "Karcity" },
+                { value: "Bc", text: "Barcity" }
+            ]
+        };
+
+        document.getElementById('stateDropdown').addEventListener('change', function () {
+            const state = this.value;
+            const cityDropdown = document.getElementById('cityDropdown');
+            cityDropdown.innerHTML = '<option value="">Select City</option>';
+
+            if (state && citiesByState[state]) {
+                citiesByState[state].forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.value;
+                    option.textContent = city.text;
+                    cityDropdown.appendChild(option);
+                });
+            }
+        });
+
+        document.getElementById('imageFile').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            if (file) {
+                reader.onload = function (e) {
+                    const img = document.getElementById('imagePreview');
+                    img.src = e.target.result;
+                    img.classList.remove('d-none');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                const img = document.getElementById('imagePreview');
+                img.classList.add('d-none');
+            }
+        });
+
+        function validateDOB() {
+            var dobInput = document.getElementById("DateOfBirth");
+            var dob = new Date(dobInput.value);
+            var today = new Date();
+
+            document.getElementById("dobError").textContent = "";
+
+            if (dob > today) {
+                document.getElementById("dobError").textContent = "Date of birth cannot be in the future.";
+                return false;
+            }
+
+            var age = today.getFullYear() - dob.getFullYear();
+            var monthDiff = today.getMonth() - dob.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+
+            if (age < 5) {
+                document.getElementById("dobError").textContent = "You must be at least 5 years old.";
+                return false;
+            }
+
+            return true;
+        }
+
+        function validatePassword() {
+            var password = document.getElementById("PasswordHash").value;
+            var confirmPassword = document.getElementById("ConfirmPassword").value;
+            var passwordError = document.getElementById("passwordError");
+
+            passwordError.textContent = "";
+
+            if (password !== confirmPassword) {
+                passwordError.textContent = "Passwords do not match.";
+                return false;
+            }
+
+            return true;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var form = document.querySelector("form");
+            form.addEventListener("submit", function (event) {
+                if (!validateDOB() || !validatePassword()) {
+                    event.preventDefault(); // Prevent form submission if validation fails
+                }
+            });
+        });
+    </script>
+}
